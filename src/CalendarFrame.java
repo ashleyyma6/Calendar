@@ -11,7 +11,7 @@ import java.io.IOException;
 public class CalendarFrame extends JFrame implements ChangeListener {
 
     private Controller controller;
-    private Events events;  
+    private Events events;
     private Agenda agenda;
     final JPanel rightPanel;
 
@@ -56,7 +56,6 @@ public class CalendarFrame extends JFrame implements ChangeListener {
  
     /**
      * If new events are added to model, updates the current view automatically
-     *
      * @param e The event that changed the state
      */
     public void stateChanged(ChangeEvent e) 

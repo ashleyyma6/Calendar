@@ -6,7 +6,7 @@ import java.io.IOException;
  * @author Guohua Jiang
  *
  */
-public class SimpleCalendar
+public class Main
 {
     public static void main(String[] args) throws IOException 
     {

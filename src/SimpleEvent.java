@@ -3,9 +3,8 @@ import java.util.ArrayList;import java.util.Arrays;
 import java.util.List;
 
 /**
- * SimpleEvent holds the data for one event in calendar
+ * SimpleEvent holds the data for one simple event in calendar
  * @author Guohua Jiang
- *
  */
 public class SimpleEvent implements Event, Comparable<Event>
 {

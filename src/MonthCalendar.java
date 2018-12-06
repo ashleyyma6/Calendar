@@ -14,14 +14,16 @@ import java.util.GregorianCalendar;
  * @author Guohua Jiang
  *
  */
-public class MonthCalendar extends JPanel {    //model and controller of small month calendar
+public class MonthCalendar extends JPanel {
 
     private Controller controller;
+    FileHandler f;
     private JPanel monthCal;
     private ArrayList<JLabel> daysLabels;
     private JLabel monthTitle;
     private ArrayList<JLabel> weeks;
-    private JButton previous, next, createEvent, quit;
+    private JButton previous, next, createEvent, quit, removeEvent;
+
     public final static String[] months = {
         "January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
@@ -29,7 +31,6 @@ public class MonthCalendar extends JPanel {    //model and controller of small m
 
     /**
      * Constructor, set up all GUI components for the right side of the application.
-     *
      * @param c the controller that contains all functionality
      * @param events all events in the calendar
      */
@@ -46,16 +47,14 @@ public class MonthCalendar extends JPanel {    //model and controller of small m
         next = new JButton(">");
         next.setBackground(Color.LIGHT_GRAY);
         createEvent = new JButton("CREATE");
-        createEvent.setBackground(Color.RED);
-        createEvent.setForeground(Color.WHITE);
+        removeEvent = new JButton("REMOVE");
         quit = new JButton("Quit");
-  	    quit.setBackground(Color.WHITE);
           
         
         // create a new event button 
   	    quit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	controller.saveEventsToFile();
+            	f.saveEventsToFile(events);
             	System.exit(0);	
             }
         });
@@ -93,7 +92,8 @@ public class MonthCalendar extends JPanel {    //model and controller of small m
         setLayout(new BorderLayout());
         JPanel topPanel = new JPanel(new BorderLayout());
         JPanel tempPanel = new JPanel(new BorderLayout());
-        tempPanel.add(createEvent, BorderLayout.WEST);
+        tempPanel.add(createEvent, BorderLayout.CENTER);
+        tempPanel.add(removeEvent, BorderLayout.WEST);
         tempPanel.add(quit, BorderLayout.EAST);
         topPanel.add(tempPanel, BorderLayout.NORTH);
         topPanel.add(monthTitle, BorderLayout.WEST);
