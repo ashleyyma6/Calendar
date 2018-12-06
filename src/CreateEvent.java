@@ -18,103 +18,113 @@ import javax.swing.JTextField;
 
 /**
  * CreateEvent class asks the user for event details and creates a new event in
+ *
  * @author Guohua Jiang
  */
-class CreateEvent extends JFrame implements ActionListener 
-{
+class CreateEvent extends JFrame implements ActionListener {
     private Events events;
     private JPanel innerPanel;
     private JTextField eventNameTf;
     private JTextArea to, today;
-    private JComboBox timePicker1, timePicker2, startingTime, endingTime;
+    private JComboBox TimePicker1, TimePicker2, startingHour, endingHour,startingMin,endingMin;
     private JLabel errorMsg;
     private Controller controller;
 
     /**
      * Constructor, sets up the GUI components for the CreatEvent panel
+     *
      * @param event an Events object that contains all events in the calendar
-     * @param c the controller that carries out all functionalities 
+     * @param c     the controller that carries out all functionalities
      */
-    public CreateEvent(Events event, Controller c) 
-    {
+    public CreateEvent(Events event, Controller c) {
         events = event;
         innerPanel = new JPanel();
+        innerPanel.setSize(1000,1000);
         innerPanel.setLayout(new BorderLayout());
         controller = c;
 
         eventNameTf = new JTextField("Untitled event");
-        eventNameTf.setPreferredSize( new Dimension( 300, 28 ) );
-        eventNameTf.addMouseListener(new MouseAdapter(){
+        eventNameTf.setPreferredSize(new Dimension(500, 28));
+        eventNameTf.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e){
-            	eventNameTf.setText("");
+            public void mouseClicked(MouseEvent e) {
+                eventNameTf.setText("");
             }
         });
 
-       JPanel temPanel = new JPanel(new FlowLayout());
-       today = new JTextArea((controller.getCurMonth()+1) + "/" + controller.getCurDay() + "/" + (controller.getCurYear()%100));
-       today.setBackground( null );
-       to = new JTextArea("to");
-       to.setBackground( null );
-       
-       String[] times= {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
-       startingTime = new JComboBox(times);
-       startingTime.setSelectedIndex(0);
-       
-       endingTime = new JComboBox(times);
-       startingTime.setSelectedIndex(0);
-       
-       String[] time = {"am", "pm"};
-       timePicker1 = new JComboBox(time);
-       timePicker1.setSelectedIndex(0);
-       
-       timePicker2 = new JComboBox(time);
-       timePicker2.setSelectedIndex(0);
-       temPanel.add(today);
-       
-       temPanel.add(startingTime);
-       temPanel.add(timePicker1);
-       temPanel.add(to);
-       temPanel.add(endingTime);
-       temPanel.add(timePicker2);
-       errorMsg = new JLabel();
-       errorMsg.setForeground(Color.red);
+        JPanel temPanel = new JPanel(new FlowLayout());
+        today = new JTextArea((controller.getCurMonth() + 1) + "/" + controller.getCurDay() + "/" + (controller.getCurYear() % 100));
+        today.setBackground(null);
+        to = new JTextArea("to");
+        to.setBackground(null);
 
-       JButton submitButton = new JButton("SAVE");
-       submitButton.setBackground(Color.WHITE);
-       submitButton.addActionListener(this);
-       temPanel.add(submitButton);
-        
-       innerPanel.add(eventNameTf,BorderLayout.NORTH);
-       innerPanel.add(temPanel,BorderLayout.CENTER);
-       innerPanel.add(errorMsg,BorderLayout.SOUTH);
-        
+        String[] hour = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
+        startingHour = new JComboBox(hour);
+        startingHour.setSelectedIndex(0);
 
-       // create some padding
-       add(innerPanel);       
-       setVisible(true);
+        endingHour = new JComboBox(hour);
+        startingHour.setSelectedIndex(0);
+
+        String[] time = {"am", "pm"};
+        //for startingTime
+        TimePicker1 = new JComboBox(time);
+        TimePicker1.setSelectedIndex(0);
+
+        //for endingTime
+        TimePicker2 = new JComboBox(time);
+        TimePicker2.setSelectedIndex(0);
+
+        String[] min = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
+        startingMin = new JComboBox(min);
+        startingMin.setSelectedIndex(0);
+
+        endingMin = new JComboBox(min);
+        startingMin.setSelectedIndex(0);
+
+        temPanel.add(today);
+
+        temPanel.add(startingHour);
+        temPanel.add(startingMin);
+        temPanel.add(TimePicker1);
+        temPanel.add(to);
+        temPanel.add(endingHour);
+        temPanel.add(endingMin);
+        temPanel.add(TimePicker2);
+        errorMsg = new JLabel();
+        errorMsg.setForeground(Color.red);
+
+        JButton submitButton = new JButton("SAVE");
+        submitButton.setBackground(Color.WHITE);
+        submitButton.addActionListener(this);
+        temPanel.add(submitButton);
+
+        innerPanel.add(eventNameTf, BorderLayout.NORTH);
+        innerPanel.add(temPanel, BorderLayout.CENTER);
+        innerPanel.add(errorMsg, BorderLayout.SOUTH);
+
+
+        // create some padding
+        add(innerPanel);
+        setVisible(true);
 
     }
 
-	@Override
-	public void actionPerformed(ActionEvent a) 
-	{
-		// TODO Auto-generated method stub
-		errorMsg.setText("");
+    @Override
+    public void actionPerformed(ActionEvent a) {
+        // TODO Auto-generated method stub
+        errorMsg.setText("");
         String eventName = eventNameTf.getText();
-        Date eventDate = new Date(controller.getCurMonth(),  controller.getCurDay(), controller.getCurYear());
-        int eventStartHour = Integer.parseInt((String) startingTime.getSelectedItem());
-        if(timePicker1.getSelectedItem().equals("pm"))
-        {
-        	eventStartHour += 12;
+        Date eventDate = new Date(controller.getCurMonth(), controller.getCurDay(), controller.getCurYear());
+        int eventStartHour = Integer.parseInt((String) startingHour.getSelectedItem());
+        if (TimePicker1.getSelectedItem().equals("pm")) {
+            eventStartHour += 12;
         }
-        
-        int eventEndHour = Integer.parseInt((String) endingTime.getSelectedItem());
-        if(timePicker2.getSelectedItem().equals("pm"))
-        {
-        	eventEndHour += 12;
+
+        int eventEndHour = Integer.parseInt((String) endingHour.getSelectedItem());
+        if (TimePicker2.getSelectedItem().equals("pm")) {
+            eventEndHour += 12;
         }
-        
+
         Event newEvent = new SimpleEvent(eventName, eventStartHour, eventEndHour);
         //for the remainder event, new ReminderEvent(...)
         if (events.addEvent(eventDate, newEvent)) {
@@ -124,5 +134,5 @@ class CreateEvent extends JFrame implements ActionListener
         } else {
             errorMsg.setText("Error: Schedule conflicts.");
         }
-	}
+    }
 }
