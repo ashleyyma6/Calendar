@@ -56,6 +56,10 @@ public class Date implements Comparable<Date>
      * @param y year of the date.
      * @return true if the date in our record false otherwise.
      */
+
+    /**
+     * ? We can change this into compare date object and use equal method.
+     * */
     public boolean checkDate(int m, int d, int y)
     {
     	return (year == y) && (month == m) && (day== d);

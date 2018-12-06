@@ -16,6 +16,8 @@ public class Agenda extends JPanel {
     Controller controller;
     Events events;
     Color color;
+
+    //for displaying time on Agenda.
     public static final String[] title = {
         "1 am", "2 am", "3 am", "4 am", "5 am", "6 am", "7 am", "8 am", "9 am", "10 am", "11 am",
         "12 am", "1 pm", "2 pm", "3 pm", "4 pm", "5 pm", "6 pm", "7 pm", "8 pm", "9 pm", "10 pm", 
@@ -24,7 +26,6 @@ public class Agenda extends JPanel {
 
     /**
      * Sets up the GUI needed to display the events for a given day
-     *
      * @param events contains all the events currently in the calendar
      * @throws IOException 
      */
@@ -43,7 +44,7 @@ public class Agenda extends JPanel {
     /**
      * Makes a left side of table that houses all the hours of the day
      */
-    private void setLeftTable(ArrayList<DayEvents> list) {
+    private void setLeftTable(ArrayList<Event> list) {
         Object[][] obj = new Object[24][1];
         for (int i = 0; i < 24; i++) {
             obj[i][0] = title[i];
@@ -52,7 +53,7 @@ public class Agenda extends JPanel {
         
         if (list != null) {
             final int[] hrs = new int[24];
-            for (DayEvents de : list) {
+            for (Event de : list) {
                 int startHr = de.getStartHour() -1;
                 int endHr = de.getEndHour() - 1 ;
                 while (startHr <= endHr) {
@@ -97,13 +98,13 @@ public class Agenda extends JPanel {
      *
      * @param list the list of events for the given day to display in panel
      */
-    private void setRightTable(ArrayList<DayEvents> list) {
+    private void setRightTable(ArrayList<Event> list) {
         Object[][] obj = new Object[24][1];
         Object[] temp = {""};
 
         if (list != null) {
             final int[] hrs = new int[24];
-            for (DayEvents de : list) {
+            for (Event de : list) {
                 int startHr = de.getStartHour() -1;
                 int endHr = de.getEndHour() - 1 ;
 
@@ -144,7 +145,7 @@ public class Agenda extends JPanel {
      * Shows the events on a day in tabular format with left and right columns; sets the current date at the top
      * @param list the list of events for the given day to display in panel
      */
-    private void showDayView(ArrayList<DayEvents> list) {
+    private void showDayView(ArrayList<Event> list) {
         this.invalidate();
         panel.removeAll();
 

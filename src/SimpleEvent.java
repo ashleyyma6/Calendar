@@ -3,11 +3,11 @@ import java.util.ArrayList;import java.util.Arrays;
 import java.util.List;
 
 /**
- * DayEvents holds the data for one event in calendar
+ * SimpleEvent holds the data for one event in calendar
  * @author Guohua Jiang
  *
  */
-public class DayEvents implements Comparable<DayEvents>
+public class SimpleEvent implements Event, Comparable<Event>
 {
     private String eventName;
     private int startHour; 
@@ -19,7 +19,7 @@ public class DayEvents implements Comparable<DayEvents>
      * @param start the starting time of event
      * @param end the ending time of event
      */
-    public DayEvents(String name, int start, int end){
+    public SimpleEvent(String name, int start, int end){
         eventName = name; 
         startHour = start; 
         endHour = end; 
@@ -28,10 +28,13 @@ public class DayEvents implements Comparable<DayEvents>
     /**
      * @return the even as a string
      */
-    public String toString()
+    public String getEventSummary()
     {
     	String result = new String();
     	String startTime = new String();
+		String endtTime = new String();
+
+		//set am pm for the start and end time
     	if(startHour > 12)
     	{
     		startTime = (startHour-12) + "pm";
@@ -40,8 +43,7 @@ public class DayEvents implements Comparable<DayEvents>
     	{
     		startTime = startHour + "am";
     	}
-    	
-    	String endtTime = new String();
+
     	if(endHour > 12)
     	{
     		endtTime = (endHour-12) + "pm";
@@ -50,7 +52,8 @@ public class DayEvents implements Comparable<DayEvents>
     	{
     		endtTime = endHour + "am";
     	}
-    	
+
+    	//get a summary of the event
     	result = startTime + " - " + endtTime + " " + eventName;
     	return result;
     }
@@ -80,7 +83,7 @@ public class DayEvents implements Comparable<DayEvents>
     }
 
     @Override
-	public int compareTo(DayEvents other) {
+	public int compareTo(Event other) {
 		List<String> list1 = new ArrayList<String>();
 
 		if(startHour<other.startHour){return -1;}

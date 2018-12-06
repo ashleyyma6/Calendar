@@ -9,7 +9,7 @@ import java.util.*;
  */
 public class Events {
 
-    private Map<Date, ArrayList<DayEvents>> eventsList;
+    private Map<Date, ArrayList<Event>> eventsList;
     private ArrayList<Date> dates;
     private ArrayList<ChangeListener> listeners;
 
@@ -23,7 +23,6 @@ public class Events {
     /**
      * Adds a change listener to list so that it will be notified of any changes
      * in the treemap
-     *
      * @param cl the change listener to add to list
      */
     public void addChangeListener(ChangeListener cl) {
@@ -34,27 +33,27 @@ public class Events {
      * Adds a new event to the calendar
      *
      * @param date the date on which the new event will be scheduled
-     * @param dayEvents the new events details
+     * @param Event the new events details
      * @return true if event was successfully added, false if there was a
      * conflict with another event
      */
-    public boolean addEvent(Date date, DayEvents dayEvents) 
+    public boolean addEvent(Date date, Event Event) 
     {
 
-        if (dayEvents.getStartHour() > dayEvents.getEndHour()) 
+        if (Event.getStartHour() > Event.getEndHour()) 
         {
             return false;
         } //invalid format
 
-        ArrayList<DayEvents> eventList = new ArrayList<DayEvents>();
+        ArrayList<Event> eventList = new ArrayList<Event>();
 
-        int[] dayEventsHours = new int[24];
-        for (int i = 0; i < dayEventsHours.length; i++) 
+        int[] EventHours = new int[24];
+        for (int i = 0; i < EventHours.length; i++) 
         {
-            dayEventsHours[i] = -1;
+            EventHours[i] = -1;
         }
-        for (int i = dayEvents.getStartHour()-1; i <= dayEvents.getEndHour()-1; i++) {
-            dayEventsHours[i] = 1;
+        for (int i = Event.getStartHour()-1; i <= Event.getEndHour()-1; i++) {
+            EventHours[i] = 1;
         }
 
         boolean found = false;
@@ -73,17 +72,17 @@ public class Events {
         // if events for this date already exist, add to that arraylist.
         if (found == true) 
         {
-            for (DayEvents e : eventList) 
+            for (Event e : eventList) 
             {
                 for (int i = e.getStartHour()-1; i <= e.getEndHour()-1; i++) 
                 {
-                	if (dayEventsHours[i] == 1) 
+                	if (EventHours[i] == 1) 
                     {
                     	return false;
                     }
                 }
             }
-            eventList.add(dayEvents);
+            eventList.add(Event);
             Collections.sort(eventList);
             eventsList.put(dates.get(index), eventList);
             updateAllListeners();
@@ -92,7 +91,7 @@ public class Events {
         else 
         {
             eventList = new ArrayList();
-            eventList.add(dayEvents);
+            eventList.add(Event);
             dates.add(date);
             Collections.sort(dates);
             eventsList.put(date, eventList);
@@ -118,20 +117,21 @@ public class Events {
      * @param date the date to retrieve all events for
      * @return Sorted event list on given date
      */
-    public ArrayList<DayEvents> getEventsForDate(Date date) {
-        ArrayList<DayEvents> dayEvents = null;
+    public ArrayList<Event> getEventsForDate(Date date) {
+        ArrayList<Event> Event = null;
 
 
         for (Date d : dates) {
             if (d.checkDate(date.getMonth(), date.getDay(), date.getYear())) {
-                dayEvents = eventsList.get(d);
+                Event = eventsList.get(d);
             }
         }
 
-        if (dayEvents != null) {
-            Collections.sort(dayEvents);
+        if (Event != null) {
+            //need fix
+            Collections.sort(Event);
         }
-        return dayEvents;
+        return Event;
     }
 
 	public ArrayList<String> saveEventsToFile()
@@ -139,8 +139,8 @@ public class Events {
 		ArrayList<String> result = new ArrayList<String>();
 		for(int i = 0; i < dates.size(); i++)
 		{	
-			ArrayList<DayEvents> DE = eventsList.get(dates.get(i));
-			for(DayEvents de : DE )
+			ArrayList<Event> DE = eventsList.get(dates.get(i));
+			for(Event de : DE )
 			{
 				String temp = new String();
 				temp = (dates.get(i).getMonth()+1) + "/" + dates.get(i).getDay() + "/" + dates.get(i).getYear() + ": " + de.toString();
