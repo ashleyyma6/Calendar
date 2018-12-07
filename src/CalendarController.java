@@ -3,38 +3,39 @@ import java.util.GregorianCalendar;
 
 
 /**
- * The Controller class carries out the tasks thats are requested by the view.
+ * The CalendarController class carries out the tasks thats are requested by the view.
  * @author Guohua Jiang
  */
-public class Controller {
+public class CalendarController {
 
     private Agenda agenda;
     private GregorianCalendar calendar;
     private Events events;
+    private FileHandler fileHandler;
     public final static String[] dayOfWeek = {
         "", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
     };
 
     /**
      * Constructor.
-     * @param events events holds all events in the calender and the corresponding information
+     * @param e events holds all events in the calender and the corresponding information
+     *
      */
-    Controller(Events events) 
+    CalendarController(Events e)
     {
-        this.events = events;
+        this.events = e;
         calendar = new GregorianCalendar();
-        //readExcitingEvents();
     }
 
     /**
      * Default constructor that creates a empty schedule.
      */
-    Controller()
+    CalendarController()
     {
+        // default day view
         // default day view
         calendar = new GregorianCalendar();
         this.events = new Events();
-        //readExcitingEvents();
     }
 
     /**
@@ -107,8 +108,6 @@ public class Controller {
     public Date getDate() {
         return new Date( (getCurMonth()), getCurDay(), getCurYear());
     }
-
-
 
     /**
      * Sets the calendar date to today's date

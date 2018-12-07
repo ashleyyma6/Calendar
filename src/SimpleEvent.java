@@ -11,6 +11,7 @@ public class SimpleEvent implements Event, Comparable<Event>
     private String eventName;
     private int startHour; 
     private int endHour;
+    private Date date;
     
     /**
      * Constructor that sets a name, starting time, and ending time to an event
@@ -92,5 +93,6 @@ public class SimpleEvent implements Event, Comparable<Event>
 		   return 0;
 		}
 	}
+
 
 }

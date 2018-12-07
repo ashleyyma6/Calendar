@@ -16,7 +16,7 @@ import java.util.GregorianCalendar;
  */
 public class MonthCalendar extends JPanel {
 
-    private Controller controller;
+    private CalendarController controller;
     FileHandler f;
     private JPanel monthCal;
     private ArrayList<JLabel> daysLabels;
@@ -34,7 +34,7 @@ public class MonthCalendar extends JPanel {
      * @param c the controller that contains all functionality
      * @param events all events in the calendar
      */
-    MonthCalendar(Controller c, final Events events)
+    MonthCalendar(CalendarController c, final Events events)
     {
         controller = c;
         monthCal = new JPanel();
@@ -58,11 +58,10 @@ public class MonthCalendar extends JPanel {
             	System.exit(0);	
             }
         });
-        
         createEvent.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 CreateEvent ce = new CreateEvent(events, controller);
-                ce.setSize(350, 130);
+                ce.setSize(300, 130);
                 Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
                 ce.setLocation(dim.width/2-ce.getSize().width/2, dim.height/2-ce.getSize().height/2); 
                 ce.setVisible(true);

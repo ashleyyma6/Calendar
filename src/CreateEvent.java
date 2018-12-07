@@ -28,23 +28,21 @@ class CreateEvent extends JFrame implements ActionListener {
     private JTextArea to, today;
     private JComboBox TimePicker1, TimePicker2, startingHour, endingHour,startingMin,endingMin;
     private JLabel errorMsg;
-    private Controller controller;
+    private CalendarController controller;
 
     /**
      * Constructor, sets up the GUI components for the CreatEvent panel
-     *
      * @param event an Events object that contains all events in the calendar
      * @param c     the controller that carries out all functionalities
      */
-    public CreateEvent(Events event, Controller c) {
+    public CreateEvent(Events event, CalendarController c) {
         events = event;
         innerPanel = new JPanel();
-        innerPanel.setSize(1000,1000);
         innerPanel.setLayout(new BorderLayout());
         controller = c;
 
         eventNameTf = new JTextField("Untitled event");
-        eventNameTf.setPreferredSize(new Dimension(500, 28));
+        eventNameTf.setPreferredSize( new Dimension( 300, 28 ) );
         eventNameTf.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -74,21 +72,21 @@ class CreateEvent extends JFrame implements ActionListener {
         TimePicker2 = new JComboBox(time);
         TimePicker2.setSelectedIndex(0);
 
-        String[] min = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
-        startingMin = new JComboBox(min);
-        startingMin.setSelectedIndex(0);
-
-        endingMin = new JComboBox(min);
-        startingMin.setSelectedIndex(0);
+//        String[] min = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
+//        startingMin = new JComboBox(min);
+//        startingMin.setSelectedIndex(0);
+//
+//        endingMin = new JComboBox(min);
+//        startingMin.setSelectedIndex(0);
 
         temPanel.add(today);
 
         temPanel.add(startingHour);
-        temPanel.add(startingMin);
+//        temPanel.add(startingMin);
         temPanel.add(TimePicker1);
         temPanel.add(to);
         temPanel.add(endingHour);
-        temPanel.add(endingMin);
+//        temPanel.add(endingMin);
         temPanel.add(TimePicker2);
         errorMsg = new JLabel();
         errorMsg.setForeground(Color.red);
@@ -98,10 +96,12 @@ class CreateEvent extends JFrame implements ActionListener {
         submitButton.addActionListener(this);
         temPanel.add(submitButton);
 
+        errorMsg = new JLabel();
+        errorMsg.setForeground(Color.red);
+
         innerPanel.add(eventNameTf, BorderLayout.NORTH);
         innerPanel.add(temPanel, BorderLayout.CENTER);
         innerPanel.add(errorMsg, BorderLayout.SOUTH);
-
 
         // create some padding
         add(innerPanel);

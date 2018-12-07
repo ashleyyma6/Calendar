@@ -5,51 +5,47 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Displays all the events scheduled for a certain day
+ * Agenda holds and show all the events scheduled for a certain day in a table
  */
 public class Agenda extends JPanel {
 
-    JLabel dateTitle;//???
-    JScrollPane scrollPane;//for the scroll part on the right side of the time table?
-    JTable leftTable, rightTable;
+    JLabel timeTitleLabel;//the hour time in the daily schedule table
+    JScrollPane scrollPane;//for scroll to check the daily schedule
+    JTable leftColumn, rightColumn;//left row and right row of the table
     JPanel panel;
-    Controller controller;
-    Events events;
+    CalendarController controller;
+    Events events;//the collection of events
     Color color;
-
-    //for displaying time on Agenda.
-    public static final String[] title = {"1 am", "2 am", "3 am", "4 am", "5 am", "6 am", "7 am", "8 am", "9 am", "10 am", "11 am", "12 am", "1 pm", "2 pm", "3 pm", "4 pm", "5 pm", "6 pm", "7 pm", "8 pm", "9 pm", "10 pm", "11 pm", "12 pm"};
+    public static final String[] timeTitles = {"1 am", "2 am", "3 am", "4 am", "5 am", "6 am", "7 am", "8 am", "9 am", "10 am", "11 am", "12 am", "1 pm", "2 pm", "3 pm", "4 pm", "5 pm", "6 pm", "7 pm", "8 pm", "9 pm", "10 pm", "11 pm", "12 pm"};
 
     /**
-     * Sets up the GUI needed to display the events for a given day
-     *
+     * Sets up the GUI needed to display the events, agenda for a given day
      * @param events contains all the events currently in the calendar
      * @throws IOException
      */
     public Agenda(Events events) throws IOException {
-        dateTitle = new JLabel();
 
-        color = new Color(152, 217, 233);//light green
-
+        //initialization
+        this.setLayout(new BorderLayout());//set the agenda panel to border layout
+        timeTitleLabel = new JLabel();
         panel = new JPanel(new BorderLayout());
-
         scrollPane = new JScrollPane(panel);
-
-        controller = new Controller();
-
+        color = new Color(152, 217, 233);//event defult color? light green
         this.events = events;
-        this.setLayout(new BorderLayout());
+        controller = new CalendarController();
+
         showToday();
 
     }
 
     /**
      * Makes a left side of table that displays all the hours of the day
+     * @param list a list holds all the events currently in the calendar
      */
-    private void setLeftTable(ArrayList<Event> list) {
+    private void setLeftColumn(ArrayList<Event> list) {
         Object[][] obj = new Object[24][1];
         for (int i = 0; i < 24; i++) {
-            obj[i][0] = title[i];
+            obj[i][0] = timeTitles[i];
         }
 
         Object[] temp = {""};
@@ -64,7 +60,7 @@ public class Agenda extends JPanel {
                 }
             }
 
-            leftTable = new JTable(obj, temp) {
+            leftColumn = new JTable(obj, temp) {
                 @Override
                 public Component prepareRenderer(TableCellRenderer renderer, int Index_row, int Index_col) {
                     Component comp = super.prepareRenderer(renderer, Index_row, Index_col);
@@ -78,26 +74,25 @@ public class Agenda extends JPanel {
                 }
             };
         } else {
-            leftTable = new JTable(obj, temp);
+            leftColumn = new JTable(obj, temp);
         }
 
 
-        leftTable.setTableHeader(null);
-        leftTable.setRowHeight(40);
-        leftTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        leftTable.getColumnModel().getColumn(0).setPreferredWidth(50);
-        leftTable.setGridColor(Color.lightGray);
-        leftTable.setEnabled(false);
+        leftColumn.setTableHeader(null);
+        leftColumn.setRowHeight(40);
+        leftColumn.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        leftColumn.getColumnModel().getColumn(0).setPreferredWidth(50);
+        leftColumn.setGridColor(Color.lightGray);
+        leftColumn.setEnabled(false);
 
     }
 
     /**
      * Makes a right-hand side of table that houses all the events on the day,
      * and displays them in a graphical way as blocks of time
-     *
      * @param list the list of events for the given day to display in panel
      */
-    private void setRightTable(ArrayList<Event> list) {
+    private void setRightColumn(ArrayList<Event> list) {
         Object[][] obj = new Object[24][1];
         Object[] temp = {""};
 
@@ -114,7 +109,7 @@ public class Agenda extends JPanel {
                 }
             }
 
-            rightTable = new JTable(obj, temp) {
+            rightColumn = new JTable(obj, temp) {
                 @Override
                 public Component prepareRenderer(TableCellRenderer renderer, int Index_row, int Index_col) {
                     Component comp = super.prepareRenderer(renderer, Index_row, Index_col);
@@ -128,32 +123,31 @@ public class Agenda extends JPanel {
                 }
             };
         } else {
-            rightTable = new JTable(obj, temp);
+            rightColumn = new JTable(obj, temp);
         }
 
-        rightTable.setTableHeader(null);
-        rightTable.setRowHeight(40);
-        rightTable.setGridColor(Color.lightGray);
-        rightTable.setEnabled(false);
+        rightColumn.setTableHeader(null);
+        rightColumn.setRowHeight(40);
+        rightColumn.setGridColor(Color.lightGray);
+        rightColumn.setEnabled(false);
     }
 
     /**
      * Shows the events on a day in tabular format with left and right columns; sets the current date at the top
-     *
      * @param list the list of events for the given day to display in panel
      */
-    private void showDayView(ArrayList<Event> list) {
+    private void displayDayView(ArrayList<Event> list) {
         this.invalidate();
         panel.removeAll();
 
-        setLeftTable(list);
-        setRightTable(list);
+        setLeftColumn(list);
+        setRightColumn(list);
         setDateTitle(controller.getDayOfWeek() + " " + (controller.getCurMonth() + 1) + "/" + controller.getCurDay());
 
-        panel.add(leftTable, BorderLayout.WEST);
-        panel.add(rightTable, BorderLayout.CENTER);
+        panel.add(leftColumn, BorderLayout.WEST);
+        panel.add(rightColumn, BorderLayout.CENTER);
 
-        this.add(dateTitle, BorderLayout.NORTH);
+        this.add(timeTitleLabel, BorderLayout.NORTH);
         this.add(scrollPane, BorderLayout.CENTER);
         this.validate();
         this.repaint();
@@ -161,28 +155,26 @@ public class Agenda extends JPanel {
 
     /**
      * Sets the date to be displayed at the top of screen
-     *
      * @param date The date to display at the top of day view
      */
     private void setDateTitle(String date) {
-        this.dateTitle.setText(date);
+        this.timeTitleLabel.setText(date);
     }
 
     public void showToday() {
         controller.todayDate();
-        showDayView(events.getEventsForDate(controller.getDate()));
+        displayDayView(events.getEventsForDate(controller.getDate()));
     }
 
     /**
      * Shows the day view for a specified date
-     *
      * @param year  the year to display
      * @param month the month to display
      * @param day   the day to display
      */
     public void showView(int year, int month, int day) {
         controller.setCalendar(year, month, day);
-        showDayView(events.getEventsForDate(controller.getDate()));
+        displayDayView(events.getEventsForDate(controller.getDate()));
     }
 }
 
