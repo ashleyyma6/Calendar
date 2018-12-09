@@ -89,18 +89,21 @@ public class CalendarController {
     }
 
     /**
-     * Increments the current calendar by one
+     * Increments the current calendar month by one
      */
-    public void nextDay() {
-        calendar.add(GregorianCalendar.DAY_OF_MONTH, 1);
+    public void nextMonth() {
+
+        calendar.add(GregorianCalendar.MONTH, 1);
     }
 
     /**
-     * Decrements the current calendar by one
+     * Decrements the current calendar month by one
      */
-    public void prevDay() {
-        calendar.add(GregorianCalendar.DAY_OF_MONTH, -1);
+    public void prevMonth() {
+
+        calendar.add(GregorianCalendar.MONTH, -1);
     }
+
 
     /**
      * Gets the a Date object that contains the currant month, day and year

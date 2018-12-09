@@ -71,6 +71,7 @@ public class MonthCalendar extends JPanel {
         addButtonActionListener(previous);
         addButtonActionListener(next);
 
+        //add calendar changing next/previous month buttons
         JPanel lrPanel = new JPanel(new FlowLayout());
         lrPanel.add(previous);
         lrPanel.add(next);
@@ -183,12 +184,12 @@ public class MonthCalendar extends JPanel {
             	
                 if (button.getText().equals("<")) 
                 {
-                    controller.prevDay();
+                    controller.prevMonth();
                     controller.getAgenda().showView(controller.getCurYear(), controller.getCurMonth(), controller.getCurDay());
                 }
                 else 
                 {
-                    controller.nextDay();
+                    controller.nextMonth();
                     controller.getAgenda().showView(controller.getCurYear(), controller.getCurMonth(), controller.getCurDay());
                 }
                 showMonth();
