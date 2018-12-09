@@ -4,19 +4,20 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
+
 /**
  * Agenda holds and show all the events scheduled for a certain day in a table
  */
 public class Agenda extends JPanel {
 
-    JLabel timeTitleLabel;//the hour time in the daily schedule table
-    JScrollPane scrollPane;//for scroll to check the daily schedule
-    JTable leftColumn, rightColumn;//left row and right row of the table
-    JPanel panel;
-    CalendarController controller;
-    Events events;//the collection of events
-    Color color;
-    public static final String[] timeTitles = {"1 am", "2 am", "3 am", "4 am", "5 am", "6 am", "7 am", "8 am", "9 am", "10 am", "11 am", "12 am", "1 pm", "2 pm", "3 pm", "4 pm", "5 pm", "6 pm", "7 pm", "8 pm", "9 pm", "10 pm", "11 pm", "12 pm"};
+    private JLabel timeTitleLabel;//the hour time in the daily schedule table
+    private JScrollPane scrollPane;//for scroll to check the daily schedule
+    private JTable leftColumn, rightColumn;//left row and right row of the table, wrapper
+    private JPanel panel;//the panel for left table and right table inside of the agenda
+    private CalendarController controller;
+    private Events events;//the collection of events
+    private Color color;
+    private static final String[] timeTitles = {"1 am", "2 am", "3 am", "4 am", "5 am", "6 am", "7 am", "8 am", "9 am", "10 am", "11 am", "12 am", "1 pm", "2 pm", "3 pm", "4 pm", "5 pm", "6 pm", "7 pm", "8 pm", "9 pm", "10 pm", "11 pm", "12 pm"};
 
     /**
      * Sets up the GUI needed to display the events, agenda for a given day
@@ -27,13 +28,12 @@ public class Agenda extends JPanel {
 
         //initialization
         this.setLayout(new BorderLayout());//set the agenda panel to border layout
-        timeTitleLabel = new JLabel();
-        panel = new JPanel(new BorderLayout());
-        scrollPane = new JScrollPane(panel);
+        timeTitleLabel = new JLabel();//set displaying hour time part
+        panel = new JPanel(new BorderLayout());//the table panel
+        scrollPane = new JScrollPane(panel);//set the table panel to scroll panel
         color = new Color(152, 217, 233);//event defult color? light green
-        this.events = events;
+        this.events = events;//the events in the agenda
         controller = new CalendarController();
-
         showToday();
 
     }
@@ -161,20 +161,25 @@ public class Agenda extends JPanel {
         this.timeTitleLabel.setText(date);
     }
 
+    /**
+     * //set the date on the agenda to the current date, then display
+     * */
     public void showToday() {
-        controller.todayDate();
+        controller.setTodayDate();
         displayDayView(events.getEventsForDate(controller.getDate()));
     }
 
     /**
-     * Shows the day view for a specified date
+     * Shows the day agenda for a specified date
      * @param year  the year to display
      * @param month the month to display
      * @param day   the day to display
      */
     public void showView(int year, int month, int day) {
-        controller.setCalendar(year, month, day);
+        controller.setCalendarDate(year, month, day);
         displayDayView(events.getEventsForDate(controller.getDate()));
     }
+
+
 }
 

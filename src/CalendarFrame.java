@@ -5,8 +5,12 @@ import java.awt.*;
 import java.io.IOException;
 
 /**
+ * MVC
+ * Model: Event, agenda, events
+ * View: Calendar Frame
+ * C: Calendar controller
+ *
  * CalendarFrame is the JFrame that holds all GUI components of the application
- * @author Guohua Jiang
  */
 public class CalendarFrame extends JFrame implements ChangeListener {
 
@@ -26,8 +30,9 @@ public class CalendarFrame extends JFrame implements ChangeListener {
 
         setTitle("Calendar");//set application title
         this.setLayout(new BorderLayout());//set the frame to border layout
-        events = new Events();
-        agenda = new Agenda(events);
+
+        events = new Events();//all the events in this calendar
+        agenda = new Agenda(events);//the agenda of the above events
 
         controller = new CalendarController();//set the controller to control the calendar
         controller.setCurView(agenda);//set the current agenda to the calendar
@@ -38,8 +43,6 @@ public class CalendarFrame extends JFrame implements ChangeListener {
         leftPanel.setLayout(new BorderLayout());
 
         events.addChangeListener(this);//for the changing in the events
-
-
 
         //set the calendar on the left side of the application
         final MonthCalendar leftMonthCalendar = new MonthCalendar(controller, events);

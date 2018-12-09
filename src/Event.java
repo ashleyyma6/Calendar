@@ -7,6 +7,5 @@ public interface Event extends Comparable<Event>{
     String getName();
     int getStartHour();
     int getEndHour();
-
     int compareTo(Event other);
 }

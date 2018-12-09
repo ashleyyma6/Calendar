@@ -17,10 +17,9 @@ import java.util.GregorianCalendar;
 public class MonthCalendar extends JPanel {
 
     private CalendarController controller;
-    FileHandler f;
-    private JPanel monthCal;
+    private JPanel monthCal;//the panel for the monthly calendar
     private ArrayList<JLabel> daysLabels;
-    private JLabel monthTitle;
+    private JLabel monthTitle;//the label for the month name
     private ArrayList<JLabel> weeks;
     private JButton previous, next, createEvent, quit, removeEvent;
 
@@ -30,7 +29,7 @@ public class MonthCalendar extends JPanel {
     };
 
     /**
-     * Constructor, set up all GUI components for the right side of the application.
+     * Constructor, set up all GUI components for the right side monthly calendar of the application.
      * @param c the controller that contains all functionality
      * @param events all events in the calendar
      */
@@ -41,7 +40,8 @@ public class MonthCalendar extends JPanel {
         monthCal.setLayout(new GridLayout(0, 7));
         daysLabels = new ArrayList<JLabel>();
         monthTitle = new JLabel();
-     
+
+
         previous = new JButton("<");
         previous.setBackground(Color.LIGHT_GRAY);
         next = new JButton(">");
@@ -49,12 +49,11 @@ public class MonthCalendar extends JPanel {
         createEvent = new JButton("CREATE");
         removeEvent = new JButton("REMOVE");
         quit = new JButton("Quit");
-          
         
         // create a new event button 
   	    quit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	f.saveEventsToFile(events);
+                controller.saveEventsToFile();
             	System.exit(0);	
             }
         });
@@ -67,8 +66,6 @@ public class MonthCalendar extends JPanel {
                 ce.setVisible(true);
             }
         });
-        
-        
 
         // behavior of left and right arrow clicks
         addButtonActionListener(previous);
@@ -90,11 +87,11 @@ public class MonthCalendar extends JPanel {
 
         setLayout(new BorderLayout());
         JPanel topPanel = new JPanel(new BorderLayout());
-        JPanel tempPanel = new JPanel(new BorderLayout());
-        tempPanel.add(createEvent, BorderLayout.CENTER);
-        tempPanel.add(removeEvent, BorderLayout.WEST);
-        tempPanel.add(quit, BorderLayout.EAST);
-        topPanel.add(tempPanel, BorderLayout.NORTH);
+        JPanel buttonPanel = new JPanel(new FlowLayout());
+        buttonPanel.add(createEvent);
+        buttonPanel.add(removeEvent);
+        buttonPanel.add(quit);
+        topPanel.add(buttonPanel, BorderLayout.NORTH);
         topPanel.add(monthTitle, BorderLayout.WEST);
         topPanel.add(lrPanel, BorderLayout.EAST);
         add(topPanel, BorderLayout.NORTH);
@@ -149,7 +146,6 @@ public class MonthCalendar extends JPanel {
 
     /**
      * Get the numbers of days in arrayList matter
-     *
      * @return an arraylist of all days
      */
     private ArrayList<String> showSmallCalendar() {
@@ -200,7 +196,6 @@ public class MonthCalendar extends JPanel {
         });
     }
 
-
     /**
      * Attaches mouse clicked listener to daysLabel.
      */
@@ -223,7 +218,7 @@ public class MonthCalendar extends JPanel {
                  */
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                	controller.setCalendar(tempYearCopy, tempMonthCopy, Integer.parseInt(jl.getText()));
+                	controller.setCalendarDate(tempYearCopy, tempMonthCopy, Integer.parseInt(jl.getText()));
                 	showMonth();
                 	controller.getAgenda().showView(tempYearCopy, tempMonthCopy, Integer.parseInt(jl.getText()));
                 }

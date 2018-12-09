@@ -35,7 +35,7 @@ class CreateEvent extends JFrame implements ActionListener {
      * @param event an Events object that contains all events in the calendar
      * @param c     the controller that carries out all functionalities
      */
-    public CreateEvent(Events event, CalendarController c) {
+    CreateEvent(Events event, CalendarController c) {
         events = event;
         innerPanel = new JPanel();
         innerPanel.setLayout(new BorderLayout());
