@@ -38,6 +38,9 @@ public class Events {
      * @return true if event was successfully added, false if there was a
      * conflict with another event
      */
+
+
+    // add event
     public boolean addEvent(Date date, DayEvents dayEvents) 
     {
 
@@ -100,6 +103,73 @@ public class Events {
             return true;
         }
     }
+
+
+
+    // cancel event
+    public boolean cancelEvent(Date date, DayEvents dayEvents)
+    {
+
+        if (dayEvents.getStartHour() > dayEvents.getEndHour())
+        {
+            return false;
+        } //invalid format
+
+        ArrayList<DayEvents> eventList = new ArrayList<DayEvents>();
+
+        int[] dayEventsHours = new int[24];
+        for (int i = 0; i < dayEventsHours.length; i++)
+        {
+            dayEventsHours[i] = -1;
+        }
+        for (int i = dayEvents.getStartHour()-1; i <= dayEvents.getEndHour()-1; i++) {
+            dayEventsHours[i] = 1;
+        }
+
+
+        // found whether we have a previous recorded list or not
+        int index = 0;
+        for(index = 0; index < dates.size(); index++)
+        {
+            if(dates.get(index).checkDate(date.getMonth(), date.getDay(), date.getYear()))
+            {
+                eventList = eventsList.get(dates.get(index));;
+                break;
+            }
+        }
+
+
+        // if events for this date already exist, cancel part of that arraylist.
+
+            // check whether there is a event at this time or not, if yes, cancel it
+
+            ArrayList<DayEvents> eventList2 = new ArrayList<DayEvents>();
+            for (DayEvents e : eventList)
+            {
+                eventList2.add(e);
+            }
+
+            for (DayEvents e : eventList2)
+            {
+                for (int i = e.getStartHour()-1; i <= e.getEndHour()-1; i++)
+                {
+                    if (dayEventsHours[i] == 1)
+                    {
+                        eventList.remove(e);
+                    }
+                }
+            }
+
+            Collections.sort(eventList);
+            eventsList.put(dates.get(index), eventList);
+            updateAllListeners();
+            return true;
+
+
+    } // end of cancel event
+
+
+
 
     /**
      * Update all listeners with new information if state of treemap changes

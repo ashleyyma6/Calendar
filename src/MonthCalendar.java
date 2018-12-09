@@ -21,7 +21,7 @@ public class MonthCalendar extends JPanel {    //model and controller of small m
     private ArrayList<JLabel> daysLabels;
     private JLabel monthTitle;
     private ArrayList<JLabel> weeks;
-    private JButton previous, next, createEvent, quit;
+    private JButton previous, next, createEvent, quit, cancelEvent;
     public final static String[] months = {
         "January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
@@ -45,27 +45,52 @@ public class MonthCalendar extends JPanel {    //model and controller of small m
         previous.setBackground(Color.LIGHT_GRAY);
         next = new JButton(">");
         next.setBackground(Color.LIGHT_GRAY);
-        createEvent = new JButton("CREATE");
-        createEvent.setBackground(Color.RED);
+
+        // create button
+        createEvent = new JButton("Create");
+        createEvent.setBackground(Color.BLUE);
         createEvent.setForeground(Color.WHITE);
+
+
+        // cancel button
+        cancelEvent = new JButton("Cancel");
+        cancelEvent.setBackground(Color.RED);
+        cancelEvent.setForeground(Color.WHITE);
+
+
+        // quit button
         quit = new JButton("Quit");
   	    quit.setBackground(Color.WHITE);
           
         
-        // create a new event button 
+        // quit listener
   	    quit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	controller.saveEventsToFile();
             	System.exit(0);	
             }
         });
-        
+
+
+  	    // create listener
         createEvent.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 CreateEvent ce = new CreateEvent(events, controller);
                 ce.setSize(350, 130);
                 Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
                 ce.setLocation(dim.width/2-ce.getSize().width/2, dim.height/2-ce.getSize().height/2); 
+                ce.setVisible(true);
+            }
+        });
+
+
+        // cancel listener
+        cancelEvent.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                CancelEvent ce = new CancelEvent(events, controller);
+                ce.setSize(350, 130); // the size of the new panel
+                Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+                ce.setLocation(dim.width/2-ce.getSize().width/2, dim.height/2-ce.getSize().height/2);
                 ce.setVisible(true);
             }
         });
@@ -94,6 +119,7 @@ public class MonthCalendar extends JPanel {    //model and controller of small m
         JPanel topPanel = new JPanel(new BorderLayout());
         JPanel tempPanel = new JPanel(new BorderLayout());
         tempPanel.add(createEvent, BorderLayout.WEST);
+        tempPanel.add(cancelEvent,BorderLayout.CENTER); // add the cancel button to the panel
         tempPanel.add(quit, BorderLayout.EAST);
         topPanel.add(tempPanel, BorderLayout.NORTH);
         topPanel.add(monthTitle, BorderLayout.WEST);
