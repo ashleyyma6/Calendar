@@ -126,7 +126,6 @@ class CreateEvent extends JFrame implements ActionListener {
         }
 
         Event newEvent = new SimpleEvent(eventName, eventStartHour, eventEndHour);
-        //for the remainder event, new ReminderEvent(...)
         if (events.addEvent(eventDate, newEvent)) {
             this.setVisible(false);
             this.dispose();

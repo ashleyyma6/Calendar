@@ -1,15 +1,15 @@
 import java.util.ArrayList;import java.util.Arrays;
-
+import java.util.TimerTask;
 import java.util.List;
-
+import java.time.*;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 /**
  * DayEvents holds the data for one event in calendar
- * @author Guohua Jiang
- *
  */
 
-//We need to add the equal method for comparing the time of event with the current time to get notification
-public class ReminderEvent implements Event, Comparable<Event>
+public class ReminderEvent extends TimerTask implements Event, Comparable<Event>
 {
     private String eventName;
     private int startHour;
@@ -85,6 +85,8 @@ public class ReminderEvent implements Event, Comparable<Event>
         return endHour;
     }
 
+    public Date getDate(){return date;}
+
     @Override
     public int compareTo(Event other) {
         List<String> list1 = new ArrayList<String>();
@@ -97,5 +99,30 @@ public class ReminderEvent implements Event, Comparable<Event>
         }
     }
 
+    public void run(){
+        while (LocalTime.now().getHour() <= startHour) {
+            if (LocalTime.now().getHour() == startHour) {
+                showReminder();
+            }
+        }
+    }
 
+    public void showReminder() {
+        JFrame f = new JFrame();
+        int timeInterval = 1000;
+        final JDialog dialog = new JDialog(f, "Test", true);
+        //Test should be the event detail
+        Timer timer = new Timer(timeInterval, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dialog.setVisible(false);
+                dialog.dispose();
+            }
+        });
+        timer.setRepeats(false);
+        timer.start();
+
+        dialog.setVisible(true);
+        System.out.println("Dialog closed");
+    }
 }

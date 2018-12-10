@@ -1,10 +1,8 @@
-import java.util.ArrayList;import java.util.Arrays;
-
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * SimpleEvent holds the data for one simple event in calendar
- * @author Guohua Jiang
  */
 public class SimpleEvent implements Event, Comparable<Event>
 {
@@ -22,7 +20,7 @@ public class SimpleEvent implements Event, Comparable<Event>
     public SimpleEvent(String name, int start, int end){
         eventName = name; 
         startHour = start; 
-        endHour = end; 
+        endHour = end;
     }
     
     /**
@@ -82,6 +80,8 @@ public class SimpleEvent implements Event, Comparable<Event>
         return endHour;
     }
 
+	public Date getDate(){return date;}
+
     @Override
 	public int compareTo(Event other) {
 		List<String> list1 = new ArrayList<String>();
@@ -93,6 +93,5 @@ public class SimpleEvent implements Event, Comparable<Event>
 		   return 0;
 		}
 	}
-
 
 }
