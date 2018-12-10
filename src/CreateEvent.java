@@ -26,7 +26,7 @@ class CreateEvent extends JFrame implements ActionListener {
     private JPanel innerPanel;
     private JTextField eventNameTf;
     private JTextArea to, today;
-    private JComboBox TimePicker1, TimePicker2, startingHour, endingHour,startingMin,endingMin;
+    private JComboBox TimePicker1, TimePicker2, startingHour, endingHour,eventTypePicker;
     private JLabel errorMsg;
     private CalendarController controller;
 
@@ -56,7 +56,10 @@ class CreateEvent extends JFrame implements ActionListener {
         to = new JTextArea("to");
         to.setBackground(null);
 
-        String[] hour = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
+        String[] eventType = {"Basic","Reminder"};
+        eventTypePicker = new JComboBox(eventType);
+
+        String[] hour = {"1", "2", "3", "4", "5", "6", "7", "8", "9-", "10", "11", "12"};
         startingHour = new JComboBox(hour);
         startingHour.setSelectedIndex(0);
 
@@ -72,22 +75,15 @@ class CreateEvent extends JFrame implements ActionListener {
         TimePicker2 = new JComboBox(time);
         TimePicker2.setSelectedIndex(0);
 
-//        String[] min = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
-//        startingMin = new JComboBox(min);
-//        startingMin.setSelectedIndex(0);
-//
-//        endingMin = new JComboBox(min);
-//        startingMin.setSelectedIndex(0);
-
         temPanel.add(today);
 
         temPanel.add(startingHour);
-//        temPanel.add(startingMin);
         temPanel.add(TimePicker1);
         temPanel.add(to);
         temPanel.add(endingHour);
-//        temPanel.add(endingMin);
         temPanel.add(TimePicker2);
+        temPanel.add(eventTypePicker);
+
         errorMsg = new JLabel();
         errorMsg.setForeground(Color.red);
 
@@ -125,7 +121,15 @@ class CreateEvent extends JFrame implements ActionListener {
             eventEndHour += 12;
         }
 
-        Event newEvent = new SimpleEvent(eventName, eventStartHour, eventEndHour);
+
+        Event newEvent = null;
+        if(eventTypePicker.getSelectedItem().equals("Basic")){
+            newEvent = new SimpleEvent(eventName, eventStartHour, eventEndHour);
+        }
+        else if(eventTypePicker.getSelectedItem().equals("Reminder")){
+            newEvent = new ReminderEvent(eventName, eventStartHour, eventEndHour);
+        }
+
         if (events.addEvent(eventDate, newEvent)) {
             this.setVisible(false);
             this.dispose();
