@@ -29,6 +29,18 @@ public class SimpleEvent implements Event, Comparable<Event>
     public String getEventType(){return eventType;}
 
     public void setEventType(String type){eventType = type;}
+
+    public void setEventName(String _eventName){
+        eventName = _eventName;
+    }
+
+    public void setEventStartHour(int _eventStartHour){
+        eventStartHour = _eventStartHour;
+    }
+
+    public void setEventEndHour(int _eventEndHour){
+        eventEndHour = _eventEndHour;
+    }
     
     /**
      * @return the even as a string

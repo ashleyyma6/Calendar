@@ -65,8 +65,8 @@ public class Agenda extends JPanel {
         if (list != null) {
             final int[] hrs = new int[24];
             for (SimpleEvent de : list) {
-                int startHr = de.getStartHour() -1;
-                int endHr = de.getEndHour() - 1 ;
+                int startHr = de.getEventStartHour() -1;
+                int endHr = de.getEventEndHour() - 1 ;
                 if(de.getEventType().equals("reminder")) {
                     while (startHr <= endHr) {
                         hrs[startHr++] = 2;
@@ -128,10 +128,10 @@ public class Agenda extends JPanel {
         if (list != null) {
             final int[] hrs = new int[24];
             for (SimpleEvent de : list) {
-                int startHr = de.getStartHour() -1;
-                int endHr = de.getEndHour() - 1 ;
+                int startHr = de.getEventStartHour() -1;
+                int endHr = de.getEventEndHour() - 1 ;
 
-                obj[startHr][0] = de.getName();
+                obj[startHr][0] = de.getEventName();
 
 
                 if(de.getEventType().equals("reminder")) {

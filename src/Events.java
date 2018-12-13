@@ -44,7 +44,7 @@ public class Events {
     public boolean addEvent(Date date, SimpleEvent dayEvents)
     {
 
-        if (dayEvents.getStartHour() > dayEvents.getEndHour()) 
+        if (dayEvents.getEventStartHour() > dayEvents.getEventEndHour())
         {
             return false;
         } //invalid format
@@ -56,7 +56,7 @@ public class Events {
         {
             dayEventsHours[i] = -1;
         }
-        for (int i = dayEvents.getStartHour()-1; i <= dayEvents.getEndHour()-1; i++) {
+        for (int i = dayEvents.getEventStartHour()-1; i <= dayEvents.getEventEndHour()-1; i++) {
             dayEventsHours[i] = 1;
         }
 
@@ -78,7 +78,7 @@ public class Events {
         {
             for (SimpleEvent e : eventList)
             {
-                for (int i = e.getStartHour()-1; i <= e.getEndHour()-1; i++) 
+                for (int i = e.getEventStartHour()-1; i <= e.getEventEndHour()-1; i++)
                 {
                 	if (dayEventsHours[i] == 1) 
                     {
@@ -110,7 +110,7 @@ public class Events {
     public boolean cancelEvent(Date date, SimpleEvent dayEvents)
     {
 
-        if (dayEvents.getStartHour() > dayEvents.getEndHour())
+        if (dayEvents.getEventStartHour() > dayEvents.getEventEndHour())
         {
             return false;
         } //invalid format
@@ -122,7 +122,7 @@ public class Events {
         {
             dayEventsHours[i] = -1;
         }
-        for (int i = dayEvents.getStartHour()-1; i <= dayEvents.getEndHour()-1; i++) {
+        for (int i = dayEvents.getEventStartHour()-1; i <= dayEvents.getEventEndHour()-1; i++) {
             dayEventsHours[i] = 1;
         }
 
@@ -151,7 +151,7 @@ public class Events {
 
             for (SimpleEvent e : eventList2)
             {
-                for (int i = e.getStartHour()-1; i <= e.getEndHour()-1; i++)
+                for (int i = e.getEventStartHour()-1; i <= e.getEventEndHour()-1; i++)
                 {
                     if (dayEventsHours[i] == 1)
                     {
