@@ -1,15 +1,17 @@
-import java.util.ArrayList;
+import java.util.ArrayList;import java.util.Arrays;
 import java.util.List;
 
 /**
- * SimpleEvent holds the data for one simple event in calendar
+ * DayEvents holds the data for one event in calendar
+ * @author Guohua Jiang
+ *
  */
 public class SimpleEvent implements Event, Comparable<Event>
 {
     private String eventName;
     private int startHour; 
     private int endHour;
-    private Date date;
+    private String eventType;
     
     /**
      * Constructor that sets a name, starting time, and ending time to an event
@@ -21,18 +23,20 @@ public class SimpleEvent implements Event, Comparable<Event>
         eventName = name; 
         startHour = start; 
         endHour = end;
+        eventType = "simple";
     }
+
+    public String getEventType(){return eventType;}
+
+    public void setEventType(String type){eventType = type;}
     
     /**
      * @return the even as a string
      */
-    public String getEventSummary()
+    public String toString()
     {
     	String result = new String();
     	String startTime = new String();
-		String endtTime = new String();
-
-		//set am pm for the start and end time
     	if(startHour > 12)
     	{
     		startTime = (startHour-12) + "pm";
@@ -41,7 +45,8 @@ public class SimpleEvent implements Event, Comparable<Event>
     	{
     		startTime = startHour + "am";
     	}
-
+    	
+    	String endtTime = new String();
     	if(endHour > 12)
     	{
     		endtTime = (endHour-12) + "pm";
@@ -50,8 +55,7 @@ public class SimpleEvent implements Event, Comparable<Event>
     	{
     		endtTime = endHour + "am";
     	}
-
-    	//get a summary of the event
+    	
     	result = startTime + " - " + endtTime + " " + eventName;
     	return result;
     }
@@ -80,7 +84,6 @@ public class SimpleEvent implements Event, Comparable<Event>
         return endHour;
     }
 
-	public Date getDate(){return date;}
 
     @Override
 	public int compareTo(Event other) {
@@ -93,5 +96,4 @@ public class SimpleEvent implements Event, Comparable<Event>
 		   return 0;
 		}
 	}
-
 }

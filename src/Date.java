@@ -1,5 +1,6 @@
 /**
  * Date class hold day, month, and year information for a day that has events.
+ * @author Guohua Jiang
  *
  */
 public class Date implements Comparable<Date>
@@ -20,7 +21,7 @@ public class Date implements Comparable<Date>
     	month = m;
     	day = d;
     }
-
+    
     /**
      *  Get year of the date.
      * @return year
@@ -48,6 +49,32 @@ public class Date implements Comparable<Date>
     	return day;
     }
 
+    /**
+     * Check if a given date has events.
+     * @param m month of the date.
+     * @param d day of the day.
+     * @param y year of the date.
+     * @return true if the date in our record false otherwise.
+     */
+    public boolean checkDate(int m, int d, int y)
+    {
+        return (year == y) && (month == m) && (day== d);
+    }
+
+    /**
+     * Check if a date object is equal to another date object
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        } else if (this == obj) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 	@Override
 	public int compareTo(Date other) {
 		if(year < other.year) return -1;
@@ -64,20 +91,6 @@ public class Date implements Comparable<Date>
 			}
 		}
 	}
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }else if(this == obj){
-            return true;
-        }
-
-        return false;
-    }
-
-    public boolean checkDate(int m, int d, int y)
-    {
-        return (year == y) && (month == m) && (day== d);
-    }
+    
+   
 }

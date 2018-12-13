@@ -5,67 +5,58 @@ import java.awt.*;
 import java.io.IOException;
 
 /**
- * MVC
- * Model: Event, agenda, events
- * View: Calendar Frame
- * C: Calendar controller
- *
- * CalendarFrame is the JFrame that holds all GUI components of the application
+ * CalendarFrame is the JFrame that holds all GUI components.
+ * @author Guohua Jiang
  */
 public class CalendarFrame extends JFrame implements ChangeListener {
 
     private CalendarController controller;
-    private Events events;// store all the events in this calendar
-    private Agenda agenda;// the agenda is the right side table part in the application
-    final JPanel rightPanel;//the panel in the right side to hold agenda
-    JPanel leftPanel;
+    private Events events;  
+    private Agenda agenda;
+    final JPanel rightPanel;
 
     /**
-     * Default constructor to set up the GUI frame in the application
+     * Default constructor.
      * @throws IOException
      */
-    public CalendarFrame() throws IOException
+    public CalendarFrame() throws IOException 
     {
-        //initialization
+        events = new Events();
 
-        setTitle("Calendar");//set application title
-        this.setLayout(new BorderLayout());//set the frame to border layout
-
-        events = new Events();//all the events in this calendar
-        agenda = new Agenda(events);//the agenda of the above events
-
-        controller = new CalendarController();//set the controller to control the calendar
-        controller.setCurView(agenda);//set the current agenda to the calendar
-
+        agenda = new Agenda(events);
         rightPanel  = new JPanel();
-        rightPanel.setLayout(new BorderLayout());
-        leftPanel = new JPanel();
+        events.addChangeListener(this);
+
+        controller = new CalendarController(events);
+        controller.setCurView(agenda);
+
+        final MonthCalendar smallCal = new MonthCalendar(controller, events);
+        JPanel leftPanel = new JPanel();
         leftPanel.setLayout(new BorderLayout());
 
-        events.addChangeListener(this);//for the changing in the events
+        JPanel tempPanel = new JPanel(new FlowLayout());
+        tempPanel.add(smallCal);
+        smallCal.setPreferredSize(new Dimension(250, 250));
+   
+        leftPanel.add(tempPanel, BorderLayout.CENTER);
 
-        //set the calendar on the left side of the application
-        final MonthCalendar leftMonthCalendar = new MonthCalendar(controller, events);
+        rightPanel.setLayout(new BorderLayout());
 
-        //add monthly calendar to a temporary panel wrapper and then add to the left side of the application
-        JPanel monthCalendarPanel = new JPanel(new FlowLayout());
-        monthCalendarPanel.add(leftMonthCalendar);
-        leftMonthCalendar.setPreferredSize(new Dimension(250, 250));
-        leftPanel.add(monthCalendarPanel, BorderLayout.CENTER);
+        setLayout(new BorderLayout());
+        add(leftPanel, BorderLayout.WEST);
+        add(rightPanel, BorderLayout.CENTER);
+        setTitle("Calendar");
 
-        //add agenda to the right side of the application
         rightPanel.add(agenda, BorderLayout.CENTER);
         rightPanel.validate();
         controller.getAgenda().showView(controller.getCurYear(), controller.getCurMonth(), controller.getCurDay());
         rightPanel.repaint();
-
-        //add right left panel to the frame
-        add(leftPanel, BorderLayout.WEST);
-        add(rightPanel, BorderLayout.CENTER);
     }
+
  
     /**
      * If new events are added to model, updates the current view automatically
+     *
      * @param e The event that changed the state
      */
     public void stateChanged(ChangeEvent e) 

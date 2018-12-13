@@ -14,22 +14,22 @@ import java.util.GregorianCalendar;
  * @author Guohua Jiang
  *
  */
-public class MonthCalendar extends JPanel {
+public class MonthCalendar extends JPanel {    //model and controller of small month calendar
 
     private CalendarController controller;
-    private JPanel monthCal;//the panel for the monthly calendar
+    private JPanel monthCal;
     private ArrayList<JLabel> daysLabels;
-    private JLabel monthTitle;//the label for the month name
+    private JLabel monthTitle;
     private ArrayList<JLabel> weeks;
-    private JButton previous, next, createEvent, quit, removeEvent;
-
+    private JButton previous, next, createEvent, quit, cancelEvent;
     public final static String[] months = {
         "January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
     };
 
     /**
-     * Constructor, set up all GUI components for the right side monthly calendar of the application.
+     * Constructor, set up all GUI components for the right side of the application.
+     *
      * @param c the controller that contains all functionality
      * @param events all events in the calendar
      */
@@ -40,38 +40,67 @@ public class MonthCalendar extends JPanel {
         monthCal.setLayout(new GridLayout(0, 7));
         daysLabels = new ArrayList<JLabel>();
         monthTitle = new JLabel();
-
-
+     
         previous = new JButton("<");
         previous.setBackground(Color.LIGHT_GRAY);
         next = new JButton(">");
         next.setBackground(Color.LIGHT_GRAY);
-        createEvent = new JButton("CREATE");
-        removeEvent = new JButton("REMOVE");
+
+        // create button
+        createEvent = new JButton("Create");
+        createEvent.setBackground(Color.BLUE);
+        createEvent.setForeground(Color.WHITE);
+
+
+        // cancel button
+        cancelEvent = new JButton("Cancel");
+        cancelEvent.setBackground(Color.RED);
+        cancelEvent.setForeground(Color.WHITE);
+
+
+        // quit button
         quit = new JButton("Quit");
+  	    quit.setBackground(Color.WHITE);
+          
         
-        // create a new event button 
+        // quit listener
   	    quit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                controller.saveEventsToFile();
+            	controller.saveEventsToFile();
             	System.exit(0);	
             }
         });
+
+
+  	    // create listener
         createEvent.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 CreateEvent ce = new CreateEvent(events, controller);
-                ce.setSize(300, 130);
+                ce.setSize(350, 170);
                 Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
                 ce.setLocation(dim.width/2-ce.getSize().width/2, dim.height/2-ce.getSize().height/2); 
                 ce.setVisible(true);
             }
         });
 
+
+        // cancel listener
+        cancelEvent.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                CancelEvent ce = new CancelEvent(events, controller);
+                ce.setSize(350, 170); // the size of the new panel
+                Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+                ce.setLocation(dim.width/2-ce.getSize().width/2, dim.height/2-ce.getSize().height/2);
+                ce.setVisible(true);
+            }
+        });
+        
+        
+
         // behavior of left and right arrow clicks
         addButtonActionListener(previous);
         addButtonActionListener(next);
 
-        //add calendar changing next/previous month buttons
         JPanel lrPanel = new JPanel(new FlowLayout());
         lrPanel.add(previous);
         lrPanel.add(next);
@@ -88,9 +117,15 @@ public class MonthCalendar extends JPanel {
 
         setLayout(new BorderLayout());
         JPanel topPanel = new JPanel(new BorderLayout());
+        /*
+        JPanel tempPanel = new JPanel(new BorderLayout());
+        tempPanel.add(createEvent, BorderLayout.WEST);
+        tempPanel.add(cancelEvent,BorderLayout.CENTER); // add the cancel button to the panel
+        tempPanel.add(quit, BorderLayout.EAST);
+        */
         JPanel buttonPanel = new JPanel(new FlowLayout());
         buttonPanel.add(createEvent);
-        buttonPanel.add(removeEvent);
+        buttonPanel.add(cancelEvent);
         buttonPanel.add(quit);
         topPanel.add(buttonPanel, BorderLayout.NORTH);
         topPanel.add(monthTitle, BorderLayout.WEST);
@@ -147,6 +182,7 @@ public class MonthCalendar extends JPanel {
 
     /**
      * Get the numbers of days in arrayList matter
+     *
      * @return an arraylist of all days
      */
     private ArrayList<String> showSmallCalendar() {
@@ -197,6 +233,7 @@ public class MonthCalendar extends JPanel {
         });
     }
 
+
     /**
      * Attaches mouse clicked listener to daysLabel.
      */
@@ -219,7 +256,7 @@ public class MonthCalendar extends JPanel {
                  */
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                	controller.setCalendarDate(tempYearCopy, tempMonthCopy, Integer.parseInt(jl.getText()));
+                	controller.setCalendar(tempYearCopy, tempMonthCopy, Integer.parseInt(jl.getText()));
                 	showMonth();
                 	controller.getAgenda().showView(tempYearCopy, tempMonthCopy, Integer.parseInt(jl.getText()));
                 }
