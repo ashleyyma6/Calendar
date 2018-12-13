@@ -9,8 +9,8 @@ import java.util.List;
 public class SimpleEvent implements Event, Comparable<Event>
 {
     private String eventName;
-    private int startHour; 
-    private int endHour;
+    private int eventStartHour;
+    private int eventEndHour;
     private String eventType;
     
     /**
@@ -20,9 +20,9 @@ public class SimpleEvent implements Event, Comparable<Event>
      * @param end the ending time of event
      */
     public SimpleEvent(String name, int start, int end){
-        eventName = name; 
-        startHour = start; 
-        endHour = end;
+        eventName = name;
+        eventStartHour = start;
+        eventEndHour = end;
         eventType = "simple";
     }
 
@@ -33,27 +33,27 @@ public class SimpleEvent implements Event, Comparable<Event>
     /**
      * @return the even as a string
      */
-    public String toString()
+    public String getEventSummary()
     {
     	String result = new String();
     	String startTime = new String();
-    	if(startHour > 12)
+    	if(eventStartHour > 12)
     	{
-    		startTime = (startHour-12) + "pm";
+    		startTime = (eventStartHour-12) + "pm";
     	}
     	else
     	{
-    		startTime = startHour + "am";
+    		startTime = eventStartHour + "am";
     	}
     	
     	String endtTime = new String();
-    	if(endHour > 12)
+    	if(eventEndHour > 12)
     	{
-    		endtTime = (endHour-12) + "pm";
+    		endtTime = (eventEndHour-12) + "pm";
     	}
     	else
     	{
-    		endtTime = endHour + "am";
+    		endtTime = eventEndHour + "am";
     	}
     	
     	result = startTime + " - " + endtTime + " " + eventName;
@@ -64,7 +64,7 @@ public class SimpleEvent implements Event, Comparable<Event>
      * Gets the event name
      * @return the event name
      */
-    public String getName(){
+    public String getEventName(){
         return eventName;
     }
 
@@ -72,25 +72,24 @@ public class SimpleEvent implements Event, Comparable<Event>
      * Gets the events starting time
      * @return the events starting time
      */
-    public int getStartHour(){
-        return startHour;
+    public int getEventStartHour(){
+        return eventStartHour;
     }
     
     /**
      * Gets the events ending time 
      * @return the events ending time 
      */
-    public int getEndHour(){
-        return endHour;
+    public int getEventEndHour(){
+        return eventEndHour;
     }
-
 
     @Override
 	public int compareTo(Event other) {
 		List<String> list1 = new ArrayList<String>();
 
-		if(startHour<other.startHour){return -1;}
-		else if (startHour>startHour){return 1;}
+		if(eventStartHour<other.eventStartHour){return -1;}
+		else if (eventStartHour>eventStartHour){return 1;}
 		else
 		{
 		   return 0;

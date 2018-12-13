@@ -1,11 +1,11 @@
 public interface Event extends Comparable<Event>{
     String eventName = new String();
-    int startHour = -1;
-    int endHour = -1;
+    int eventStartHour = -1;
+    int eventEndHour = -1;
 
-    String toString();
-    String getName();
-    int getStartHour();
-    int getEndHour();
+    String getEventSummary();
+    String getEventName();
+    int getEventStartHour();
+    int getEventEndHour();
     int compareTo(Event other);
 }
