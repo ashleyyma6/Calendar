@@ -3,7 +3,7 @@ import java.util.List;
 
 /**
  * DayEvents holds the data for one event in calendar
- * @author Guohua Jiang
+ * @author Guohua Jiang, Lianshi Gan, Zhao Liu, Yuehongxiao Ma
  *
  */
 public class SimpleEvent implements Event, Comparable<Event>

@@ -7,7 +7,7 @@ import java.io.IOException;
  */
 public class SimpleCalendar
 {
-    public static void main(String[] args) throws IOException 
+    public static void main(String[] args) throws IOException, InterruptedException
     {
         CalendarFrame cf = new CalendarFrame(); // create the frame
         cf.setSize(new Dimension(700, 700)); // set the size
@@ -22,5 +22,9 @@ public class SimpleCalendar
             }
         };
         thread.start();
+
+        //Thread Tester to meet the project requirement
+        System.out.println("Show thread synchronization tester");
+        ThreadTester threadTester = new ThreadTester();
     }
 }

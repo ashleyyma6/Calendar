@@ -20,7 +20,7 @@ import javax.swing.JTextField;
  * CreateEvent class displays the small pop out window to asks the user for event details and creates a new event in
  * @author Guohua Jiang, Lianshi Gan, Zhao Liu, Yuehongxiao Ma
  */
-class CreateEvent extends JFrame implements ActionListener 
+public class CreateEvent extends JFrame implements ActionListener
 {
     private Events events;
     private JPanel innerPanel;
