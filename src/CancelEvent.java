@@ -17,8 +17,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /**
- * CreateEvent class asks the user for event details and creates a new event in
- * @author Guohua Jiang
+ * CreateEvent class asks the user for event details and cancel a event
+ * @author Lianshi Gan, Zhao Liu, Yuehongxiao Ma
  */
 class CancelEvent extends JFrame implements ActionListener
 {
@@ -31,9 +31,9 @@ class CancelEvent extends JFrame implements ActionListener
     private CalendarController controller;
 
     /**
-     * Constructor, sets up the GUI components for the CreatEvent panel
+     * Constructor, sets up the GUI components for the cancel Event panel
      * @param event an Events object that contains all events in the calendar
-     * @param c the controller that carries out all functionalities 
+     * @param c the controller that carries out all control functions
      */
     public CancelEvent(Events event, CalendarController c)
     {

@@ -11,15 +11,14 @@ import java.util.GregorianCalendar;
 
 /**
  * MonthCalendar is the panel that shows on the left side of the application;
- * @author Guohua Jiang
- *
+ * @author Guohua Jiang, Lianshi Gan, Zhao Liu, Yuehongxiao Ma
  */
 public class MonthCalendar extends JPanel {    //model and controller of small month calendar
 
     private CalendarController controller;
-    private JPanel monthCal;
+    private JPanel monthCal;//the panel for the monthly calendar
     private ArrayList<JLabel> daysLabels;
-    private JLabel monthTitle;
+    private JLabel monthTitle;//the label for the month name
     private ArrayList<JLabel> weeks;
     private JButton previous, next, createEvent, quit, cancelEvent;
     public final static String[] months = {
@@ -101,6 +100,7 @@ public class MonthCalendar extends JPanel {    //model and controller of small m
         addButtonActionListener(previous);
         addButtonActionListener(next);
 
+        //add calendar changing next/previous month buttons
         JPanel lrPanel = new JPanel(new FlowLayout());
         lrPanel.add(previous);
         lrPanel.add(next);
@@ -117,12 +117,6 @@ public class MonthCalendar extends JPanel {    //model and controller of small m
 
         setLayout(new BorderLayout());
         JPanel topPanel = new JPanel(new BorderLayout());
-        /*
-        JPanel tempPanel = new JPanel(new BorderLayout());
-        tempPanel.add(createEvent, BorderLayout.WEST);
-        tempPanel.add(cancelEvent,BorderLayout.CENTER); // add the cancel button to the panel
-        tempPanel.add(quit, BorderLayout.EAST);
-        */
         JPanel buttonPanel = new JPanel(new FlowLayout());
         buttonPanel.add(createEvent);
         buttonPanel.add(cancelEvent);
@@ -212,6 +206,10 @@ public class MonthCalendar extends JPanel {    //model and controller of small m
         return arr;
     }
 
+    /**
+     * Add a action listener to the prev/next button for get the changing of month on the month calendar
+     * @param button that is added a actionListener to
+     * */
     private void addButtonActionListener(final JButton button) {
         button.addActionListener(
                 new ActionListener() {
@@ -236,6 +234,7 @@ public class MonthCalendar extends JPanel {    //model and controller of small m
 
     /**
      * Attaches mouse clicked listener to daysLabel.
+     * When click the day label, the agenda will show that day's agenda
      */
     public void addDaysLabelListener() {
     	

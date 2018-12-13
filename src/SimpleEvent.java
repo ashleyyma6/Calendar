@@ -9,8 +9,8 @@ import java.util.List;
 public class SimpleEvent implements Event, Comparable<Event>
 {
     private String eventName;
-    private int eventStartHour;
-    private int eventEndHour;
+    private int startHour; 
+    private int endHour;
     private String eventType;
     
     /**
@@ -20,52 +20,40 @@ public class SimpleEvent implements Event, Comparable<Event>
      * @param end the ending time of event
      */
     public SimpleEvent(String name, int start, int end){
-        eventName = name;
-        eventStartHour = start;
-        eventEndHour = end;
+        eventName = name; 
+        startHour = start; 
+        endHour = end;
         eventType = "simple";
     }
 
     public String getEventType(){return eventType;}
 
     public void setEventType(String type){eventType = type;}
-
-    public void setEventName(String _eventName){
-        eventName = _eventName;
-    }
-
-    public void setEventStartHour(int _eventStartHour){
-        eventStartHour = _eventStartHour;
-    }
-
-    public void setEventEndHour(int _eventEndHour){
-        eventEndHour = _eventEndHour;
-    }
     
     /**
      * @return the even as a string
      */
-    public String getEventSummary()
+    public String toString()
     {
     	String result = new String();
     	String startTime = new String();
-    	if(eventStartHour > 12)
+    	if(startHour > 12)
     	{
-    		startTime = (eventStartHour-12) + "pm";
+    		startTime = (startHour-12) + "pm";
     	}
     	else
     	{
-    		startTime = eventStartHour + "am";
+    		startTime = startHour + "am";
     	}
     	
     	String endtTime = new String();
-    	if(eventEndHour > 12)
+    	if(endHour > 12)
     	{
-    		endtTime = (eventEndHour-12) + "pm";
+    		endtTime = (endHour-12) + "pm";
     	}
     	else
     	{
-    		endtTime = eventEndHour + "am";
+    		endtTime = endHour + "am";
     	}
     	
     	result = startTime + " - " + endtTime + " " + eventName;
@@ -76,7 +64,7 @@ public class SimpleEvent implements Event, Comparable<Event>
      * Gets the event name
      * @return the event name
      */
-    public String getEventName(){
+    public String getName(){
         return eventName;
     }
 
@@ -84,27 +72,38 @@ public class SimpleEvent implements Event, Comparable<Event>
      * Gets the events starting time
      * @return the events starting time
      */
-    public int getEventStartHour(){
-        return eventStartHour;
+    public int getStartHour(){
+        return startHour;
     }
     
     /**
      * Gets the events ending time 
      * @return the events ending time 
      */
-    public int getEventEndHour(){
-        return eventEndHour;
+    public int getEndHour(){
+        return endHour;
     }
+
 
     @Override
 	public int compareTo(Event other) {
 		List<String> list1 = new ArrayList<String>();
 
-		if(eventStartHour<other.eventStartHour){return -1;}
-		else if (eventStartHour>eventStartHour){return 1;}
+		if(startHour<other.startHour){return -1;}
+		else if (startHour>startHour){return 1;}
 		else
 		{
 		   return 0;
 		}
 	}
+
+    public void setName(String _eventName){
+        eventName=_eventName;
+    }
+    public void setStartHour(int _StartHour){
+        startHour = _StartHour;
+    }
+    public void setEndHour(int _EndHour){
+        endHour = _EndHour;
+    }
 }

@@ -6,7 +6,8 @@ import java.io.IOException;
 
 /**
  * CalendarFrame is the JFrame that holds all GUI components.
- * @author Guohua Jiang
+ * It will display the main interface to the users.
+ * @author Guohua Jiang, Lianshi Gan, Zhao Liu, Yuehongxiao Ma
  */
 public class CalendarFrame extends JFrame implements ChangeListener {
 
@@ -17,7 +18,7 @@ public class CalendarFrame extends JFrame implements ChangeListener {
 
     /**
      * Default constructor.
-     * @throws IOException
+     * @throws IOException exception that might happen when create the Agenda.
      */
     public CalendarFrame() throws IOException 
     {
@@ -53,10 +54,9 @@ public class CalendarFrame extends JFrame implements ChangeListener {
         rightPanel.repaint();
     }
 
- 
+
     /**
-     * If new events are added to model, updates the current view automatically
-     *
+     * If new events are added to model, updates the current view of the calendar automatically.
      * @param e The event that changed the state
      */
     public void stateChanged(ChangeEvent e) 

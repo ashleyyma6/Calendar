@@ -3,11 +3,12 @@ import java.awt.*;
 import java.io.IOException;
 /**
  * SimpleCalendar containts the main thread, creates the CalendarFrame and displays it on the window
- * @author Guohua Jiang
- *
+ * @author Guohua Jiang, Lianshi Gan, Zhao Liu, Yuehongxiao Ma
  */
-public class SimpleCalendar {
-    public static void main(String[] args) throws IOException {
+public class SimpleCalendar
+{
+    public static void main(String[] args) throws IOException 
+    {
         CalendarFrame cf = new CalendarFrame(); // create the frame
         cf.setSize(new Dimension(700, 700)); // set the size
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize(); // get screen size

@@ -7,6 +7,7 @@ import java.lang.reflect.*;
 
 /**
  * Displays all the events scheduled for a certain day
+ * @author Guohua Jiang, Lianshi Gan, Zhao Liu, Yuehongxiao Ma
  */
 public class Agenda extends JPanel {
 
@@ -65,8 +66,8 @@ public class Agenda extends JPanel {
         if (list != null) {
             final int[] hrs = new int[24];
             for (SimpleEvent de : list) {
-                int startHr = de.getEventStartHour() -1;
-                int endHr = de.getEventEndHour() - 1 ;
+                int startHr = de.getStartHour() -1;
+                int endHr = de.getEndHour() - 1 ;
                 if(de.getEventType().equals("reminder")) {
                     while (startHr <= endHr) {
                         hrs[startHr++] = 2;
@@ -128,10 +129,10 @@ public class Agenda extends JPanel {
         if (list != null) {
             final int[] hrs = new int[24];
             for (SimpleEvent de : list) {
-                int startHr = de.getEventStartHour() -1;
-                int endHr = de.getEventEndHour() - 1 ;
+                int startHr = de.getStartHour() -1;
+                int endHr = de.getEndHour() - 1 ;
 
-                obj[startHr][0] = de.getEventName();
+                obj[startHr][0] = de.getName();
 
 
                 if(de.getEventType().equals("reminder")) {

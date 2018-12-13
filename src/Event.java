@@ -1,15 +1,19 @@
+/**
+ * Event interface for the reuse of an event's basic features and adding more continence for the operations related to different kind of events
+ * It is the blue print of all kinds of events.
+ * @author Lianshi Gan, Zhao Liu, Yuehongxiao Ma
+ * */
 public interface Event extends Comparable<Event>{
     String eventName = new String();
-    int eventStartHour = -1;
-    int eventEndHour = -1;
-    String eventType = new String();
+    int startHour = -1;
+    int endHour = -1;
 
-    void setEventName(String _eventName);
-    void setEventStartHour(int _eventStartHour);
-    void setEventEndHour(int _eventEndHour);
-    String getEventName();
-    int getEventStartHour();
-    int getEventEndHour();
-    String getEventSummary();
+    void setName(String _eventName);
+    void setStartHour(int _StartHour);
+    void setEndHour(int _EndHour);
+    String toString();
+    String getName();
+    int getStartHour();
+    int getEndHour();
     int compareTo(Event other);
 }

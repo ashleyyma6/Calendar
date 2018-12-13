@@ -17,8 +17,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /**
- * CreateEvent class asks the user for event details and creates a new event in
- * @author Guohua Jiang
+ * CreateEvent class displays the small pop out window to asks the user for event details and creates a new event in
+ * @author Guohua Jiang, Lianshi Gan, Zhao Liu, Yuehongxiao Ma
  */
 class CreateEvent extends JFrame implements ActionListener 
 {
@@ -77,16 +77,12 @@ class CreateEvent extends JFrame implements ActionListener
         eventPicker = new JComboBox(eventsTypes);
         eventPicker.setSelectedIndex(0);
 
-
-       
        temPanel.add(startingTime);
        temPanel.add(timePicker1);
        temPanel.add(to);
        temPanel.add(endingTime);
        temPanel.add(timePicker2);
        temPanel.add(eventPicker);// add the selection to the panel
-
-
 
        errorMsg = new JLabel();
        errorMsg.setForeground(Color.red);
@@ -99,14 +95,16 @@ class CreateEvent extends JFrame implements ActionListener
        innerPanel.add(eventNameTf,BorderLayout.NORTH);
        innerPanel.add(temPanel,BorderLayout.CENTER);
        innerPanel.add(errorMsg,BorderLayout.SOUTH);
-        
 
        // create some padding
        add(innerPanel);       
        setVisible(true);
-
     }
-
+    /**
+     * The method will handle the adding event action to create a event.
+     * It also handles the conflicts when add event and show error message.
+     * @param a the ActionEvent of pressing the save button
+     * */
 	@Override
 	public void actionPerformed(ActionEvent a) 
 	{

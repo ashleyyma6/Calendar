@@ -4,8 +4,7 @@ import java.util.*;
 
 /**
  * Contains all the events that are currently scheduled in the calendar
- * * @author Guohua Jiang
- *
+ * @author Guohua Jiang, Lianshi Gan, Zhao Liu, Yuehongxiao Ma
  */
 public class Events {
 
@@ -44,7 +43,7 @@ public class Events {
     public boolean addEvent(Date date, SimpleEvent dayEvents)
     {
 
-        if (dayEvents.getEventStartHour() > dayEvents.getEventEndHour())
+        if (dayEvents.getStartHour() > dayEvents.getEndHour()) 
         {
             return false;
         } //invalid format
@@ -56,7 +55,7 @@ public class Events {
         {
             dayEventsHours[i] = -1;
         }
-        for (int i = dayEvents.getEventStartHour()-1; i <= dayEvents.getEventEndHour()-1; i++) {
+        for (int i = dayEvents.getStartHour()-1; i <= dayEvents.getEndHour()-1; i++) {
             dayEventsHours[i] = 1;
         }
 
@@ -78,7 +77,7 @@ public class Events {
         {
             for (SimpleEvent e : eventList)
             {
-                for (int i = e.getEventStartHour()-1; i <= e.getEventEndHour()-1; i++)
+                for (int i = e.getStartHour()-1; i <= e.getEndHour()-1; i++) 
                 {
                 	if (dayEventsHours[i] == 1) 
                     {
@@ -104,13 +103,16 @@ public class Events {
         }
     }
 
-
-
-    // cancel event
+    /**
+     * Remove an event to the calendar
+     * @param date the date on which the event was scheduled
+     * @param dayEvents the events details
+     * @return true if event was successfully deleted, false if cannot find the event
+     */
     public boolean cancelEvent(Date date, SimpleEvent dayEvents)
     {
 
-        if (dayEvents.getEventStartHour() > dayEvents.getEventEndHour())
+        if (dayEvents.getStartHour() > dayEvents.getEndHour())
         {
             return false;
         } //invalid format
@@ -122,7 +124,7 @@ public class Events {
         {
             dayEventsHours[i] = -1;
         }
-        for (int i = dayEvents.getEventStartHour()-1; i <= dayEvents.getEventEndHour()-1; i++) {
+        for (int i = dayEvents.getStartHour()-1; i <= dayEvents.getEndHour()-1; i++) {
             dayEventsHours[i] = 1;
         }
 
@@ -140,9 +142,7 @@ public class Events {
 
 
         // if events for this date already exist, cancel part of that arraylist.
-
-            // check whether there is a event at this time or not, if yes, cancel it
-
+        // check whether there is a event at this time or not, if yes, cancel it
             ArrayList<SimpleEvent> eventList2 = new ArrayList<SimpleEvent>();
             for (SimpleEvent e : eventList)
             {
@@ -151,7 +151,7 @@ public class Events {
 
             for (SimpleEvent e : eventList2)
             {
-                for (int i = e.getEventStartHour()-1; i <= e.getEventEndHour()-1; i++)
+                for (int i = e.getStartHour()-1; i <= e.getEndHour()-1; i++)
                 {
                     if (dayEventsHours[i] == 1)
                     {
@@ -168,9 +168,6 @@ public class Events {
 
     } // end of cancel event
 
-
-
-
     /**
      * Update all listeners with new information if state of treemap changes
      */
@@ -180,7 +177,6 @@ public class Events {
             listener.stateChanged(event);
         }
     }
-
 
     /**
      * Retrieves all events in sorted order by start hour for a given date
@@ -203,7 +199,10 @@ public class Events {
         }
         return dayEvents;
     }
-
+    /**
+     * Save all events information as strings to a result list
+     * @return all events information list
+     */
 	public ArrayList<String> saveEventsToFile()
 	{
 		ArrayList<String> result = new ArrayList<String>();

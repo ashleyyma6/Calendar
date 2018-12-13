@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 /**
  * The Controller class carries out the tasks thats are requested by the view.
- * @author Guohua Jiang
+ * @author Guohua Jiang, Lianshi Gan, Zhao Liu, Yuehongxiao Ma
  */
 public class CalendarController {
 
